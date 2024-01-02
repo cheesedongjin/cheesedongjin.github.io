@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase 로그인</title>
+  <!-- Firebase SDK 로드 -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+
+  <style>
+    form {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 로그인 폼 -->
+  <form id="loginForm">
+    <label for="email">이메일:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="password">비밀번호:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <button type="button" onclick="signInWithEmailAndPassword()">이메일/비밀번호로 로그인</button>
+  </form>
+
+  <!-- 회원가입 폼 -->
+  <form id="signupForm">
+    <label for="signupEmail">이메일:</label>
+    <input type="email" id="signupEmail" name="signupEmail" required><br>
+
+    <label for="signupPassword">비밀번호:</label>
+    <input type="password" id="signupPassword" name="signupPassword" required><br>
+
+    <button type="button" onclick="signUpWithEmailAndPassword()">회원가입</button>
+  </form>
+
+  <!-- 로그아웃 버튼 -->
+  <button onclick="signOut()">로그아웃</button>
+
+  <!-- Firebase 구성 -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Firebase 초기화
+    firebase.initializeApp(firebaseConfig);
+
+    // 이메일/비밀번호로 로그인 함수
+    function signInWithEmailAndPassword() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log("로그인 성공:", user);
+        })
+        .catch((error) => {
+          console.error("로그인 실패:", error.message);
+        });
+    }
+
+    // 이메일/비밀번호로 회원가입 함수
+    function signUpWithEmailAndPassword() {
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log("회원가입 성공:", user);
+        })
+        .catch((error) => {
+          console.error("회원가입 실패:", error.message);
+        });
+    }
+
+    // 로그아웃 함수
+    function signOut() {
+      firebase.auth().signOut()
+        .then(() => {
+          console.log("로그아웃 성공");
+        })
+        .catch((error) => {
+          console.error("로그아웃 실패:", error);
+        });
+    }
+  </script>
+
+</body>
+</html>
