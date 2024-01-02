@@ -21,7 +21,7 @@
       background-color: #f8f8f8;
     }
 
-    form {
+    .form-container {
       background-color: #fff;
       padding: 20px;
       border-radius: 8px;
@@ -30,6 +30,7 @@
       max-width: 300px;
       width: 100%;
       box-sizing: border-box;
+      display: none;
     }
 
     label {
@@ -73,27 +74,34 @@
 </head>
 <body>
 
-  <!-- 로그인 폼 -->
-  <form id="loginForm">
-    <label for="email">이메일:</label>
-    <input type="email" id="email" name="email" required>
+  <div id="loginContainer" class="form-container">
+    <!-- 로그인 폼 -->
+    <form id="loginForm">
+      <label for="email">이메일:</label>
+      <input type="email" id="email" name="email" required>
 
-    <label for="password">비밀번호:</label>
-    <input type="password" id="password" name="password" required>
+      <label for="password">비밀번호:</label>
+      <input type="password" id="password" name="password" required>
 
-    <button type="button" onclick="signInWithEmailAndPassword()">로그인</button>
-  </form>
+      <button type="button" onclick="signInWithEmailAndPassword()">로그인</button>
+    </form>
+  </div>
 
-  <!-- 회원가입 폼 -->
-  <form id="signupForm">
-    <label for="signupEmail">이메일:</label>
-    <input type="email" id="signupEmail" name="signupEmail" required>
+  <div id="signupContainer" class="form-container">
+    <!-- 회원가입 폼 -->
+    <form id="signupForm">
+      <label for="signupEmail">이메일:</label>
+      <input type="email" id="signupEmail" name="signupEmail" required>
 
-    <label for="signupPassword">비밀번호:</label>
-    <input type="password" id="signupPassword" name="signupPassword" required>
+      <label for="signupPassword">비밀번호:</label>
+      <input type="password" id="signupPassword" name="signupPassword" required>
 
-    <button type="button" onclick="signUpWithEmailAndPassword()">회원가입</button>
-  </form>
+      <button type="button" onclick="signUpWithEmailAndPassword()">회원가입</button>
+    </form>
+  </div>
+
+  <button onclick="showLoginForm()">로그인</button>
+  <button onclick="showSignupForm()">회원가입</button>
 
   <!-- 로그아웃 버튼 -->
   <button id="logoutBtn" onclick="signOut()">로그아웃</button>
@@ -101,6 +109,16 @@
   <!-- Firebase 구성 -->
   <script>
     // Firebase 초기화 코드는 여전히 필요합니다.
+
+    function showLoginForm() {
+      document.getElementById('loginContainer').style.display = 'block';
+      document.getElementById('signupContainer').style.display = 'none';
+    }
+
+    function showSignupForm() {
+      document.getElementById('loginContainer').style.display = 'none';
+      document.getElementById('signupContainer').style.display = 'block';
+    }
   </script>
 
 </body>
